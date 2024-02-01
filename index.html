@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="media-style.css">
+	<title>TikTok</title>
+	<script src="script.js"></script>
+</head>
+<body>
+	<div class="main">
+		<div class="logo"><img src="img/logo.png" alt=""></div>
+		<div class="mainStr">
+			<nav class="menu">
+                <img id="back" src="img/back.svg" onclick="back()" alt="">
+				<ul class="menuL">
+					<li id="monli" class="lisn" onclick="dropDown()" tabindex="1">
+                        <img class="ick" id="ickm" src="img/mon1.svg" alt="">
+						<a id="lisnmon">Монетизация</a>
+						<img class="strelka" src="img/strelka.svg" alt="">
+					</li>
+					<div class="monM">
+						<ul>
+							<li><a href="javascript:void(0)">Обзор</a></li>
+							<li><a href="javascript:void(0)">Аудитория</a></li>
+							<li><a id="prosmv" href="javascript:dropDown1()">Просмотр видео</a></li>
+						</ul>
+					</div>
+					<li >
+                        <img id="ickr" class="ick" src="img/rm1.svg" alt="">
+                        <a href="javascript:void(0)">Рабочее место</a>
+                        <img class="strelka"src="img/strelka.svg" alt="">
+                    </li>
+					<li><a href="javascript:void(0)">Центр творчества</a></li>
+					<li id="actli">
+                        <img id="icka" class="ick" src="img/act1.svg" alt="">
+                        <a href="javascript:void(0)">Активность</a>
+                        <img class="strelka"src="img/strelka.svg" alt="">
+                    </li>
+				</ul>
+			</nav>
+			<div class="viewVideo">
+				<p class="balance">487 $</p>
+				<div class="buttons">
+					<a class="vivod">Вывести на карту</a>
+					<a class="vivod">Пополнить телефон</a>
+					<a class="vivod">Другое</a>
+				</div>
+				<p class="prosmotri">9584 просмотров</p>
+				<div class="dopkn">
+					<p>Сортировать</p>
+					<p>Популярное</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
