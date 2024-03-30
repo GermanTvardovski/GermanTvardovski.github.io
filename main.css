@@ -1,0 +1,280 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #212121;
+    font-family: 'Gilroy-Regular', sans-serif;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10.5%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.wheel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --size: clamp(250px, 85vmin, 512px);
+    --lg-hs: 0 3%;
+    --lg-stop: 50%;
+    --lg: linear-gradient( hsl(var(--lg-hs) 0%) 0 var(--lg-stop), hsl(var(--lg-hs) 20%) var(--lg-stop) 100% );
+    position: relative;
+    grid-gap: calc(var(--size) / 20);
+    align-items: center;
+    grid-template-areas:
+        "spinner"
+        "trigger";
+    font-size: calc(var(--size) / 21);
+}
+
+.krug {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    border-radius: 50%;
+    background: #FFFFFF;
+    opacity: 0.7;
+    box-shadow: 0px 0px 7px rgb(0 0 0 / 32%);
+    z-index: 999;
+}
+
+.spinner {
+    position: relative;
+      display: grid;
+      align-items: center;
+      grid-template-areas: "spinner";
+      width: var(--size);
+      height: var(--size);
+      transform: rotate(calc(var(--rotate, 25) * 1deg));
+      border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    border: 8px solid #C1C9E9;
+        box-shadow: 6px -1px 100px 49px rgb(49 76 182 / 52%);
+}
+
+.spinner * {
+  grid-area: spinner;
+}
+
+.prize {
+    list-style: none;
+    font-size: 13px;
+    color: #fff;
+    display: flex;
+  align-items: center;
+  /* задаём отступы от краёв блока */
+  padding: 0 calc(var(--size) / 6) 0 calc(var(--size) / 20);
+  /* устанавливаем размеры */
+    width: 100%;
+  max-width: 137px;
+    height: 100%;
+  max-height: 248px;
+  /* устанавливаем координаты, относительно которых будем вращать текст */
+  transform-origin: center right;
+  /* поворачиваем текст */
+  transform: rotate(var(--rotate));
+  /* запрещаем пользователю выделять мышкой текст на секторах */
+  user-select: none;
+    text-align: center;
+}
+
+.prize.selected .text {
+  /* делаем текст белым */
+  color: white;
+  /* настраиваем длительность анимации */
+  animation: selected 800ms ease;
+}
+
+@keyframes selected {
+
+}
+
+.text {
+    transform: rotate(180deg);
+}
+
+.ticker {
+    position: relative;
+  /* устанавливаем размеры */
+  left: calc(var(--size) / -15);
+  width: calc(var(--size) / 10);
+  height: calc(var(--size) / 20);
+  /* делаем так, чтобы язычок был выше колеса */
+  z-index: 1;
+  /* устанавливаем точку, относительно которой будет вращаться язычок при движении колеса */
+  transform-origin: center right;
+    margin-left: 17px;
+}
+
+.ticker img {
+    width: 100%;
+    max-width: 32.1px;
+    min-width: 32.1px;
+}
+
+.is-spinning .spinner {
+  transition: transform 8s cubic-bezier(0.1, -0.01, 0, 1);
+}
+
+/* анимация движения язычка */
+.ticker {
+          animation: tick 700ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+/* эффект, когда колесо задевает язычок при вращении */
+@keyframes tick {
+  50% {
+    /* чуть поворачиваем язычок наверх в середине анимации */
+    transform: rotate(-24deg);
+  }
+}
+
+
+.form {
+    width: 100%;
+    max-width: 350px;
+    margin-left: 5%;
+}
+
+.vig {
+    display: none;
+    margin-bottom: 16px;
+}
+
+.vig span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    opacity: 0.7;
+}
+
+.zag {
+    margin-bottom: 16px;
+}
+
+.zag span {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.txt {
+    margin-bottom: 32px;
+}
+
+.txt span {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.7;
+    color: #fff;
+}
+
+.in {
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    background: none;
+    border: 2px solid #314CB6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nik {
+    padding: 0;
+    font-family: 'Gilroy-Regular', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    height: 48px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+}
+
+.nik:focus-visible {
+    outline: none;
+}
+
+#NickN {
+    display: none;
+}
+
+.tekstik span {
+    color: red;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.chb {
+    margin-top: 33px;
+    margin-bottom: 33px;
+}
+
+.chb label {
+    font-size: 12px;
+    color: #fff;
+}
+
+.chb label a {
+    color: #7D93EB;
+}
+
+.btn-spin {
+    display: block;
+    font-family: 'Gilroy-Regular', sans-serif;
+    width: 100%;
+    height: 47px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #314CB6;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn-spin:hover {
+    opacity: .7;
+}
+
+.btn-spin:disabled {
+  /* меняем внешний вид курсора */
+  cursor: default;
+  /* делаем кнопку полупрозрачной */
+  opacity: 0.25;
+}
+
+.btn-take {
+    display: none;
+    font-family: 'Gilroy-Regular', sans-serif;
+    width: 100%;
+    height: 47px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #314CB6;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn-take:hover {
+    opacity: .7;
+}
+
+.btn-take:disabled {
+  /* меняем внешний вид курсора */
+  cursor: default;
+  /* делаем кнопку полупрозрачной */
+  opacity: 0.25;
+}

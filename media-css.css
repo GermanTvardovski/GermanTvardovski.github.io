@@ -1,0 +1,168 @@
+@media only screen and (max-width: 800px) and (max-height: 2000px) {
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .main {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0;
+    }
+    .wheel {
+        margin-top: -50%;
+    }
+    .ticker {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform-origin: center bottom;
+        margin-top: 17px;
+    }
+    .ticker img {
+        transform: rotate(90deg);
+    }
+    @keyframes tick {
+          50% {
+            /* чуть поворачиваем язычок наверх в середине анимации */
+            transform: rotate(-24deg);
+          }
+    }
+    .form {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 17px;
+    }
+    .prize {
+        font-size: 11.5px;
+        padding: 0 calc(var(--size) / 6) 0 calc(var(--size) / 20);
+    }
+}
+
+@media only screen and (max-width: 800px) and (max-height: 545px) {
+    .prize {
+        font-size: 10px;
+        padding: 0 calc(var(--size) / 6) 0 calc(var(--size) / 40);
+    }
+}
+
+@media only screen and (max-width: 800px) and (max-height: 520px) {
+    .prize {
+        padding: 0 calc(var(--size) / 6.5) 0 calc(var(--size) / 7000);
+    }
+}
+
+@media only screen and (max-width: 800px) and (max-height: 470px) {
+    .prize {
+        padding: 0 calc(var(--size) / 7.5) 0 calc(var(--size) / 7000);
+    }
+}
+
+@media only screen and (max-width: 800px) and (max-height: 445px) {
+    .prize {
+        max-width: 100xp;
+        padding: 0 calc(var(--size) / 7.5) 0 calc(var(--size) / 7000);
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .prize {
+        padding: 0 calc(var(--size) / 7.5) 0 calc(var(--size) / 20);
+    }
+}
+
+@media only screen and (max-width: 550px) and (max-height: 480px) {
+    .prize {
+        padding: 0 calc(var(--size) / 7.5) 0 calc(var(--size) / 40);
+    }
+}
+
+@media only screen and (max-width: 550px) and (max-height: 460px) {
+    .prize {
+        padding: 0 calc(var(--size) / 5.5) 0 calc(var(--size) / 20);
+        max-width: 100px;
+    }
+}
+
+@media only screen and (max-width: 550px) and (max-height: 400px) {
+    .prize {
+        padding: 0 calc(var(--size) / 6) 0 calc(var(--size) / 80);
+    }
+}
+
+@media only screen and (max-width: 550px) and (max-height: 365px) {
+    .prize {
+        padding: 0 calc(var(--size) / 5) 0 calc(var(--size) / 20);
+        max-width: 75px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .prize {
+        padding: 0 calc(var(--size) / 10) 0 calc(var(--size) / 20);
+    }
+}
+
+@media only screen and (max-width: 480px) and (max-height: 460px) {
+    .prize {
+        padding: 0 calc(var(--size) / 5.5) 0 calc(var(--size) / 20);
+    }
+}
+
+@media only screen and (max-width: 480px) and (max-height: 400px) {
+    .prize {
+        padding: 0 calc(var(--size) / 5.5) 0 calc(var(--size) / 80);
+    }
+}
+
+@media only screen and (max-width: 480px) and (max-height: 375px) {
+    .prize {
+        padding: 0 calc(var(--size) / 7) 0 calc(var(--size) / 20);
+        max-width: 100px;
+    }
+}
+
+@media only screen and (max-width: 455px) and (max-height: 2000px) {
+    .prize {
+        padding: 0 calc(var(--size) / 7) 0 calc(var(--size) / 20);
+        max-width: 100px;
+    }
+}
+
+@media only screen and (max-width: 385px) {
+    .prize {
+        padding: 0 calc(var(--size) / 7.5) 0 calc(var(--size) / 20);
+        max-width: 100px;
+    }
+}
+
+@media only screen and (max-width: 345px) {
+    .prize {
+        padding: 0 calc(var(--size) / 6) 0 calc(var(--size) / 20);
+        max-width: 75px;
+    }
+}
+
+@media only screen and (max-height: 420px) and (max-width: 5000px){
+    .prize {
+        padding: 0 calc(var(--size) / 6) 0 calc(var(--size) / 20);
+        max-width: 100px;
+    }
+}
+
+@media only screen and (max-height: 370px) and (max-width: 5000px){
+    .prize {
+        padding: 0 calc(var(--size) / 8) 0 calc(var(--size) / 15);
+        max-width: 100px;
+    }
+}
+
+@media only screen and (max-height: 345px) and (max-width: 5000px){
+    .prize {
+        padding: 0 calc(var(--size) / 5.5) 0 calc(var(--size) / 20);
+        max-width: 75px;
+        font-size: 8px;
+    }
+}
