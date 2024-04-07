@@ -641,53 +641,12 @@ input {
     background-color: rgba(224, 229, 231, 0.5);
 }
 
-.footer {
-    max-width: 1200px;
-    width: 100%;
-    max-height: 300px;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 5%;
-    flex-wrap: wrap;
-}
-
-.menuf {
-    display: flex;
-    text-align: center;
-}
-
-.menuf a {
-	text-decoration: none;
-	background: linear-gradient(90deg, var(--myColor1), var(--myColor2));
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
-	font-family: Bicubic;
-	font-size:  clamp(5px, 3vw, 14px);
-	font-weight: 400;
-	margin-left: 3%;
-	transition: all .5s, --myColor1 .5s, --myColor2 .5s;
-}
-
-.menuf a:hover {
-	--myColor1: #A21C26;
-	--myColor2: #2480FF;
-	text-decoration: underline;
-}
-
-.footer p {
-    margin: 0;
-    color: #fff;
-    font-family: Bicubic;
-    font-size: 14px;
-}
-
 .otv {
     max-width: 1200px;
     width: 100%;
     margin: auto;
     margin-top: 7%;
+    margin-bottom: 7%;
 }
 
 .otv h1 {
@@ -702,6 +661,7 @@ input {
 	font-family: Furore;
 	font-size: clamp(15px, 7vw, 55px);
 	margin: auto;
+    margin-bottom: 5%;
 }
 
 .panel {
@@ -772,4 +732,47 @@ input {
     color: #fff;
     font-size: clamp(5px, 3vw, 12px);
     margin: 0 5%;
+}
+
+.footer {
+    max-width: 1200px;
+    width: 100%;
+    max-height: 300px;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5%;
+    flex-wrap: wrap;
+    margin-bottom: 2%;
+}
+
+.menuf {
+    display: flex;
+    text-align: center;
+}
+
+.menuf a {
+	text-decoration: none;
+	background: linear-gradient(90deg, var(--myColor1), var(--myColor2));
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-family: Bicubic;
+	font-size:  clamp(5px, 3vw, 14px);
+	font-weight: 400;
+	margin-left: 3%;
+	transition: all .5s, --myColor1 .5s, --myColor2 .5s;
+}
+
+.menuf a:hover {
+	--myColor1: #A21C26;
+	--myColor2: #2480FF;
+	text-decoration: underline;
+}
+
+.footer p {
+    margin: 0;
+    color: #fff;
+    font-family: Bicubic;
+    font-size: 14px;
 }
