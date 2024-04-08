@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js" type="text/javascript"></script>
     <script src="js/script.js"></script>
 	<link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/media-css.css">
 	<link rel="shortcut icon" href="img/logo.svg" type="image/x-icon">
 	<title>Phygital СПО</title>
 </head>
@@ -105,7 +106,7 @@
                     <input type="text" placeholder="Название команды">
                     <div class="gro1">
                         <input type="text" placeholder="ФИО ответственного">
-                        <input id="dri" type="date" placeholder="Дата рождения">
+                        <input id="dri" class="dr" type="text" placeholder="Дата рождения">
                         <div class="select">
                             <input class="select__input" type="hidden" name="">
                             <div class="select__head">Статус</div>
@@ -123,12 +124,28 @@
                 <div class="danou"><img id="bg1" src="img/bg4.svg" alt="">
                     <!--<img id="bg2" src="img/bg2.svg" alt="">-->
                     <input type="text" placeholder="ФИО">
-                    <input type="date" title="Дата рождения" placeholder="Дата рождения">
+                    <input class="dr" type="text" placeholder="Дата рождения">
                     <input type="text" placeholder="Учебное заведение">
                     <div class="dopdop">
-                        <input type="text" placeholder="Размер формы">
-                        <input type="text" placeholder="Мужской">
-                        <input type="text" placeholder="Женский">
+                        <div class="select">
+                            <input class="select__input" type="hidden" name="">
+                            <div class="select__head">Размер формы</div>
+                            <ul class="select__list" style="display: none;">
+                                <li class="select__item">Не знаю какие есть</li>
+                                <li class="select__item">Сам напишешь</li>
+                            </ul>
+                        </div>
+                        <div class="pol">
+                            <div class="form_radio_btn">
+                                <input id="radio-1" type="radio" name="radio" value="1" checked>
+                                <label for="radio-1">Мужской</label>
+                            </div>
+                             
+                            <div class="form_radio_btn">
+                                <input id="radio-2" type="radio" name="radio" value="2">
+                                <label for="radio-2">Женский</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="chb">
                         <input type="checkbox" name="asd" id="cb1"><label for="cb1">я ознакомлен и согласен с требованиями</label>
