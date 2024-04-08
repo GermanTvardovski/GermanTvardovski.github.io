@@ -198,7 +198,7 @@ body {
 	padding: 0;
 	margin: 0;
 	font-family: Bicubic;
-	font-size: clamp(7px, 2.5vw, 20px);
+	font-size: clamp(7px, 4vw, 20px);
 	font-weight: 400;
 	max-width: 700px;
 	width: 100%;
@@ -239,7 +239,7 @@ body {
 .frame5 div h1 {
 	background: linear-gradient(90deg, #fff, #fff);
 	background-clip: text;
-	font-size: clamp(10px, 5vw, 30px);
+	font-size: clamp(10px, 3vh, 30px);
 	margin-bottom: 7%;
 	text-align: left !important;
 }
@@ -377,6 +377,10 @@ body {
 	margin: 5% auto;
 }
 
+.zay form {
+    margin: 0 5%;
+}
+
 .sor {
     display: flex;
     max-width: 1100px;
@@ -423,17 +427,24 @@ body {
 }
 
 .dopdop {
-    min-width: 225px;
-    width: 100%;
+    max-width: 100%;
+    width: 60%;
     display: flex;
     justify-content:space-between;
     flex-wrap: wrap;
     justify-items: center;
+    margin-bottom: 3%;
 }
 
 .dopdop input {
     min-width: 225px;   
     width: 20%;
+    margin-bottom: 3%;
+}
+
+.dopdop .select {
+    width: 45%;
+    margin-right: 5%;
     margin-bottom: 3%;
 }
 
@@ -529,6 +540,7 @@ body {
 }
 
 input {
+    min-width: 120px;
     background-color: #0D0D0D;
     box-shadow: none;
     border: none;
@@ -554,6 +566,7 @@ input {
     display: block;
     display: flex;
     align-items: center;
+    min-width: 120px;
     max-width: 535px;
     width: 100%;
     height: clamp(15px, 15vw, 55px);
@@ -563,10 +576,9 @@ input {
 }
 
 .select__head {
-    width: 90%;
+    width: 85%;
     font-family: Bicubic;
-    font-size: 15px;
-    line-height: 35px;
+    font-size: clamp(7px, 7vh, 14px);
     line-height: 18px;
     padding: 3.5% 0;
     margin-left: 3%;
@@ -578,7 +590,8 @@ input {
 .select__head::after {
     width: 30px;
     height: 30px;
-    background: url(../img/Expand\ Arrow.svg);
+    background-image: url(../img/Expand\ Arrow.svg);
+    background-size: contain;
     position: absolute;
     right: 10px;
     bottom: 50%;
@@ -641,12 +654,54 @@ input {
     background-color: rgba(224, 229, 231, 0.5);
 }
 
+.pol {
+    max-width: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.form_radio_btn {
+	display: inline-block;
+    min-width: 120px;
+    width: 100%;
+}
+.form_radio_btn input[type=radio] {
+	display: none;
+}
+.form_radio_btn label {
+    margin-right: 10%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	cursor: pointer;
+	line-height: 35px;
+    height: clamp(15px, 15vh, 55px);
+	border: 1px solid;
+	border-image-source: linear-gradient(125deg, rgba(162, 28, 38, 0.7) 38.88%, rgba(36, 128, 255, 0.7) 100%);
+	border-image-slice: 1;
+	user-select: none;
+    font-family: Bicubic;
+    letter-spacing: 1px;
+    color: #CFCFCF;
+    font-size: clamp(5px, 5vw, 15px);
+    transition: .5s;
+}
+ 
+.form_radio_btn input[type=radio]:checked + label {
+	background: linear-gradient(90deg, var(--myColor1), var(--myColor2));
+	background-clip: border-box;
+    color: #A21C26;
+}
+ 
+.form_radio_btn label:hover {
+	color: #A21C26;
+}
+
 .otv {
     max-width: 1200px;
     width: 100%;
-    margin: auto;
-    margin-top: 7%;
-    margin-bottom: 7%;
+    margin: 7% auto;
 }
 
 .otv h1 {
