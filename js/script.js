@@ -39,10 +39,22 @@ jQuery(($) => {
 
     $("#phone").click(function(){
         $(this).setCursorPosition(3);
-      }).mask("+7(999) 999-9999");
+    }).mask("+7(999) 999-9999");
+
+    $(".dr").click(function(){
+        $(this).setCursorPosition(0);
+    }).mask("99.99.9999", {placeholder: 'ДД.ММ.ГГГГ'});
 
     $('.panel-heading').click(function () {
         $(this).toggleClass('in').next().slideToggle();
         $('.panel-heading').not(this).removeClass('in').next().slideUp();
+    });
+
+    var $page = $('html, body');
+    $('a[href*="#"]').click(function() {
+        $page.animate({
+            scrollTop: $($.attr(this, 'href')).offset().top-20
+        }, 1000);
+        return false;
     });
 });
