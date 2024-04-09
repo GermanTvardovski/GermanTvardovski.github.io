@@ -1,3 +1,9 @@
+@media only screen and (max-width: 1050px) and (max-height: 2000px) {
+    .dopdop {
+        width: 80%;
+    }
+}
+
 @media only screen and (max-width: 800px) and (max-height: 2000px) {
     input {
         font-size: clamp(5px, 5vw, 11px);
@@ -15,6 +21,10 @@
     .form_radio_btn label {
         font-size: clamp(5px, 5vw, 11px);
         height: clamp(10px, 5vh, 50px);
+    }
+
+    .dopdop {
+        width: 100%;
     }
 }
 
@@ -48,5 +58,16 @@
     .dopdop .select {
         width: 100% !important;
         margin-right: 0;
+    }
+
+    .pol {
+        width: 100% !important;
+        flex-wrap: nowrap;
+    }
+}
+
+@media only screen and (max-width: 280px) and (max-height: 2000px) {
+    .pol {
+        flex-wrap: wrap;
     }
 }
