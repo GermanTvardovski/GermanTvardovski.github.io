@@ -655,15 +655,17 @@ input {
 }
 
 .pol {
-    max-width: 40%;
+    max-width: 45%;
     width: 100%;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .form_radio_btn {
 	display: inline-block;
     min-width: 120px;
+    max-width: 120px;
     width: 100%;
 }
 .form_radio_btn input[type=radio] {
