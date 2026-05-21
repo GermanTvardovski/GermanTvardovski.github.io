@@ -568,6 +568,45 @@
     .recording-btn:hover { transform: scale(1.1); }
     .recording-btn:active { transform: scale(0.95); }
     
+    /* Message context menu */
+    .message-context-menu {
+      position: fixed;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      padding: 6px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 3000;
+      animation: menuFadeIn 0.15s ease;
+      min-width: 160px;
+    }
+    @keyframes menuFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .message-context-menu.show { display: flex; }
+    .context-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-size: 14px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      color: var(--tg-text);
+    }
+    .context-menu-item:hover { background: var(--tg-hover); }
+    .context-menu-item.danger { color: #d32f2f; }
+    .context-menu-item.danger:hover { background: rgba(211, 47, 47, 0.1); }
+    .context-menu-item svg { width: 20px; height: 20px; }
+    
     @media (max-width: 600px) { 
       .msg { max-width: 85%; } 
       header { padding: 10px 16px; }
@@ -675,9 +714,25 @@
   <input type="file" id="file-photo" accept="image/*" style="display: none;">
   <input type="file" id="file-general" style="display: none;">
 
+  <!-- Message context menu -->
+  <div class="message-context-menu" id="message-context-menu">
+    <button class="context-menu-item" id="ctx-reply">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
+      Ответить
+    </button>
+    <button class="context-menu-item" id="ctx-edit">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+      Редактировать
+    </button>
+    <button class="context-menu-item danger" id="ctx-delete">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+      Удалить
+    </button>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, push, onChildAdded, onChildChanged, onChildRemoved, query, orderByChild, limitToLast } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { getDatabase, ref, push, onChildAdded, onChildChanged, onChildRemoved, query, orderByChild, limitToLast, update, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCr07AnsEg6D_6ruk4rHg9ILn4lk939MOM",
@@ -775,6 +830,10 @@
     const settingsModal = document.getElementById('settings-modal');
     const usernameInput = document.getElementById('username-input');
     const myUserIdDisplay = document.getElementById('my-user-id');
+    const messageContextMenu = document.getElementById('message-context-menu');
+    const ctxReply = document.getElementById('ctx-reply');
+    const ctxEdit = document.getElementById('ctx-edit');
+    const ctxDelete = document.getElementById('ctx-delete');
 
     // Set user ID in modal
     myUserIdDisplay.textContent = myUserId;
@@ -785,6 +844,8 @@
     let recordingTimerInterval = null;
     let mediaRecorder = null;
     let recordedChunks = [];
+    let currentContextMenuMsg = null;
+    let voiceRecordTimeout = null;
 
     const formatTime = (ts) => new Date(ts).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
     const formatDuration = (seconds) => {
@@ -874,6 +935,52 @@
       
       messagesEl.appendChild(div);
       messagesEl.scrollTop = messagesEl.scrollHeight;
+      
+      // Add context menu event listeners for both desktop and mobile
+      const showContextMenu = (e, isTouch = false) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        currentContextMenuMsg = { key, msg: messagesMap.get(key), element: div };
+        
+        // Position menu
+        const rect = div.getBoundingClientRect();
+        let menuX, menuY;
+        
+        if (isTouch || e.type === 'contextmenu') {
+          // For touch or right-click, show near the message
+          menuX = Math.min(e.clientX || rect.right - 150, window.innerWidth - 170);
+          menuY = Math.min(e.clientY || rect.top, window.innerHeight - 200);
+        } else {
+          // For long press on mobile
+          menuX = Math.min(rect.left, window.innerWidth - 170);
+          menuY = Math.min(rect.bottom + 5, window.innerHeight - 200);
+        }
+        
+        messageContextMenu.style.left = menuX + 'px';
+        messageContextMenu.style.top = menuY + 'px';
+        messageContextMenu.classList.add('show');
+        
+        // Hide edit button if not own message
+        const isMine = msg.sender === myUserId;
+        ctxEdit.style.display = isMine && msg.type === 'text' ? 'flex' : 'none';
+      };
+      
+      // Desktop right-click
+      div.addEventListener('contextmenu', (e) => showContextMenu(e, false));
+      
+      // Mobile long press
+      let longPressTimer;
+      div.addEventListener('touchstart', (e) => {
+        longPressTimer = setTimeout(() => {
+          navigator.vibrate?.(50);
+          showContextMenu(e, true);
+        }, 500);
+      }, { passive: true });
+      
+      div.addEventListener('touchend', () => clearTimeout(longPressTimer));
+      div.addEventListener('touchmove', () => clearTimeout(longPressTimer));
+      div.addEventListener('click', () => clearTimeout(longPressTimer));
       
       // Setup voice player
       if (msg.type === 'voice') {
@@ -1037,7 +1144,8 @@
           hideRecordingOverlay();
         };
         
-        mediaRecorder.start(1000);
+        // Start recording immediately but don't auto-send
+        mediaRecorder.start(100); // Smaller chunks for better quality
         recordingStartTime = Date.now();
         recordingOverlay.classList.add('show');
         updateRecordingTimer();
@@ -1138,8 +1246,42 @@
       }
     });
 
-    // Voice recording
-    voiceBtn.addEventListener('click', startRecording);
+    // Voice recording - hold to record, release to send
+    let voiceHoldTimer = null;
+    
+    const startVoiceRecording = (e) => {
+      e.preventDefault();
+      if (voiceHoldTimer) return;
+      
+      // Start recording immediately on mousedown/touchstart
+      startRecording();
+    };
+    
+    const endVoiceRecording = (e) => {
+      e.preventDefault();
+      if (!voiceHoldTimer) return;
+      
+      clearTimeout(voiceHoldTimer);
+      voiceHoldTimer = null;
+      
+      // Send the recording when released
+      stopRecording(true);
+    };
+    
+    // Mouse events for desktop
+    voiceBtn.addEventListener('mousedown', startVoiceRecording);
+    voiceBtn.addEventListener('mouseup', endVoiceRecording);
+    voiceBtn.addEventListener('mouseleave', () => {
+      if (recordingOverlay.classList.contains('show')) {
+        endVoiceRecording(new Event('mouseup'));
+      }
+    });
+    
+    // Touch events for mobile
+    voiceBtn.addEventListener('touchstart', startVoiceRecording, { passive: false });
+    voiceBtn.addEventListener('touchend', endVoiceRecording, { passive: false });
+    voiceBtn.addEventListener('touchcancel', endVoiceRecording, { passive: false });
+    
     recordingCancel.addEventListener('click', () => stopRecording(false));
     recordingSend.addEventListener('click', () => stopRecording(true));
 
@@ -1173,6 +1315,50 @@
     // New chat and copy link
     document.getElementById('new-chat-btn').addEventListener('click', newChat);
     document.getElementById('copy-link-btn').addEventListener('click', copyLink);
+
+    // Context menu actions
+    ctxReply.addEventListener('click', () => {
+      if (currentContextMenuMsg && currentContextMenuMsg.msg) {
+        const replyMsg = currentContextMenuMsg.msg;
+        inputEl.focus();
+        inputEl.value = `@${replyMsg.username || 'Пользователь'}, `;
+        messageContextMenu.classList.remove('show');
+      }
+    });
+
+    ctxEdit.addEventListener('click', async () => {
+      if (currentContextMenuMsg && currentContextMenuMsg.msg && currentContextMenuMsg.msg.type === 'text') {
+        const msg = currentContextMenuMsg.msg;
+        const key = currentContextMenuMsg.key;
+        
+        const newText = prompt('Редактировать сообщение:', msg.text);
+        if (newText !== null && newText.trim() !== '') {
+          const msgRef = ref(db, `chats/${currentRoom}/${key}`);
+          await update(msgRef, {
+            text: newText.trim(),
+            edited: true
+          });
+        }
+        messageContextMenu.classList.remove('show');
+      }
+    });
+
+    ctxDelete.addEventListener('click', async () => {
+      if (currentContextMenuMsg && currentContextMenuMsg.key) {
+        if (confirm('Удалить это сообщение?')) {
+          const msgRef = ref(db, `chats/${currentRoom}/${currentContextMenuMsg.key}`);
+          await remove(msgRef);
+        }
+        messageContextMenu.classList.remove('show');
+      }
+    });
+
+    // Close context menu when clicking elsewhere
+    document.addEventListener('click', (e) => {
+      if (!messageContextMenu.contains(e.target)) {
+        messageContextMenu.classList.remove('show');
+      }
+    });
 
     // Firebase listeners - ЗАГРУЖАЕМ ПОСЛЕДНИЕ 100 СООБЩЕНИЙ
     const messagesQuery = query(roomRef, orderByChild('ts'), limitToLast(100));
